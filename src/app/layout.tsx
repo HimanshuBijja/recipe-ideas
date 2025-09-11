@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Saira, Kavoon, Italianno, Marcellus } from "next/font/google";
+import {
+  Geist,
+  Geist_Mono,
+  Saira,
+  Kavoon,
+  Italianno,
+  Marcellus,
+} from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/context/AuthProvider";
 import { Toaster } from "sonner";
