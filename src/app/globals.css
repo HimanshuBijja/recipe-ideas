@@ -42,7 +42,6 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --font-saira: var(--font-saira);
-  --font-kavoon: var(--font-kavoon);
   --font-italianno: var(--font-italianno);
   --font-marcellus: var(--font-marcellus);
 }
@@ -50,12 +49,12 @@
 :root {
   --radius: 0.625rem;
   --background: #fefae0;
-  --foreground: oklch(0.147 0.004 49.25);
+  --foreground: #588157;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.147 0.004 49.25);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.147 0.004 49.25);
-  --primary: #283618;
+  --primary: #588157;
   --primary-foreground: oklch(0.985 0.001 106.423);
   --secondary: #dda15e;
   --secondary-foreground: oklch(0.216 0.006 56.043);
@@ -121,8 +120,12 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-saira;
   }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-marcellus;
+  }
+ 
 }
 
 @layer utilities {

@@ -1,6 +1,6 @@
 "use client";
 
-import { verifySchema } from "@/schemas/verifySchema";
+import { verifySchema } from "@/schemas/(delete)/verifySchema";
 import { ApiResponse } from "@/types/ApiResponse";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError } from "axios";
@@ -39,26 +39,26 @@ export default function VerifyAccountPage() {
 
   const [otp, setOtp] = useState<string>("");
 
-
   const form = useForm<z.infer<typeof verifySchema>>({
     resolver: zodResolver(verifySchema),
   });
 
   const currentOtp = form.watch("code");
 
-  const hasOtpChangedAfterFailure = hasFailedSubmission && currentOtp !== lastFailedOtp;
+  const hasOtpChangedAfterFailure =
+    hasFailedSubmission && currentOtp !== lastFailedOtp;
 
-//   useEffect(() => {
-//     if (hasOtpChangedAfterFailure) {
-//         setHasFailedSubmission(false);
-//         setLastFailedOtp("");
-//     }
-//   }, [hasOtpChangedAfterFailure]);
+  //   useEffect(() => {
+  //     if (hasOtpChangedAfterFailure) {
+  //         setHasFailedSubmission(false);
+  //         setLastFailedOtp("");
+  //     }
+  //   }, [hasOtpChangedAfterFailure]);
 
   const onSubmit = async (data: z.infer<typeof verifySchema>) => {
     try {
       setIsSubmittingForm(true);
-    //   setLastFailedOtp("");
+      //   setLastFailedOtp("");
       const response = await axios.post(`/api/verify-code`, {
         username: param.username,
         code: data.code,
@@ -67,7 +67,7 @@ export default function VerifyAccountPage() {
       setLastFailedOtp("");
 
       toast.success(response.data.message);
-      router.push("/sign-in"); 
+      router.push("/sign-in");
     } catch (error) {
       // console.error("Error in verify page :", error);
       const axiosError = error as AxiosError<ApiResponse>;
@@ -75,13 +75,14 @@ export default function VerifyAccountPage() {
         axiosError.response?.data.message ?? "Something went wrong";
       toast.error(errorMessage);
       setLastFailedOtp(data.code);
-        setHasFailedSubmission(true);
+      setHasFailedSubmission(true);
     } finally {
       setIsSubmittingForm(false);
     }
   };
 
-  const isSubmittingDisabled = isSubmittingForm || (hasFailedSubmission && !hasOtpChangedAfterFailure);
+  const isSubmittingDisabled =
+    isSubmittingForm || (hasFailedSubmission && !hasOtpChangedAfterFailure);
   return (
     <section className="py-24 max-w-sm container mx-auto px-2">
       <div className="px-4 flex flex-col justify-center items-center border-2 rounded-lg py-10">
@@ -125,9 +126,11 @@ export default function VerifyAccountPage() {
                       {/* </div> */}
                     </InputOTP>
                   </FormControl>
-                  {
-                    hasFailedSubmission && <p className="text-red-500 text-sm">Incorrect Otp, Please try again.</p>
-                  }
+                  {hasFailedSubmission && (
+                    <p className="text-red-500 text-sm">
+                      Incorrect Otp, Please try again.
+                    </p>
+                  )}
                   <FormMessage className="text-center" />
                 </FormItem>
               )}

@@ -8,8 +8,10 @@ import {
   Marcellus,
 } from "next/font/google";
 import "./globals.css";
-import AuthProvider from "@/context/AuthProvider";
+import AuthProvider from "@/providers/AuthProvider";
 import { Toaster } from "sonner";
+import { Navbar } from "@/components/Navbar";
+import { QueryProvider } from "@/providers/QueryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -54,15 +56,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <AuthProvider>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} ${saira.variable} ${kavoon.variable} ${italianno.variable} ${marcellus.variable} antialiased relative min-h-screen `}
-        >
-          {children}
-          <Toaster richColors position="top-right" />
-        </body>
-      </AuthProvider>
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${saira.variable} ${kavoon.variable} ${italianno.variable} ${marcellus.variable} antialiased relative min-h-screen`}
+      >
+        <QueryProvider>
+          <AuthProvider>
+            <Navbar />
+            {children}
+            <Toaster richColors position="top-right" />
+          </AuthProvider>
+        </QueryProvider>
+      </body>
     </html>
   );
 }

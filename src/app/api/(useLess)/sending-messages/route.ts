@@ -1,10 +1,6 @@
-import { generateMessagesSchema } from "@/schemas/generateMessagesSchema";
+import { generateMessagesSchema } from "@/schemas/(delete)/generateMessagesSchema";
 import { google } from "@ai-sdk/google";
-import {
-
-    APICallError,
-    streamObject,
-} from "ai";
+import { APICallError, streamObject } from "ai";
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
@@ -15,7 +11,6 @@ export async function POST(req: Request) {
         const prompt =
             "Create a list of three open-ended and engaging questions These questions are for an anonymous social messaging platform, like Qooh.me, and should be suitable for a diverse audience. Avoid personal or sensitive topics, focusing instead on universal themes that encourage friendly interaction.  Ensure the questions are intriguing, foster curiosity, and contribute to a positive and welcoming conversational environment.";
         // console.log("messages:", messages);
-        
 
         const result = streamObject({
             model: google("gemini-2.5-flash"),

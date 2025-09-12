@@ -1,33 +1,17 @@
 "use client";
 
-import { Background } from "@/components/background";
-import { Navbar } from "@/components/Navbar";
+
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { Search, TrendingUp } from "lucide-react";
 
 export default function Home() {
-  const router = useRouter();
   return (
-    <div>
-      <Navbar />
-      <BackgroundImage />
-
-      {/* <section className="py-32 flex justify-center items-center flex-col gap-6 px-6 ">
-        
-      </section> */}
-      <div className="h-screen"></div>
-    </div>
-  );
-}
-
-function BackgroundImage() {
-  return (
-    <div className="min-h-screen w-full relative flex  flex-col items-center max-lg:py-12  overflow-hidden gap-8 px-2">
+    <div className="min-h-screen w-full relative flex  flex-col items-center max-lg:py-12  overflow-hidden gap-8 px-2 ">
       <div
         className="absolute inset-0 z-0"
         style={{
@@ -43,7 +27,7 @@ function BackgroundImage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <div className="pt-48 text-center font-marcellus relative text-7xl max-md:text-4xl text-primary">
+        <div className="pt-48 max-md:pt-40 text-center font-marcellus relative text-7xl max-md:text-4xl text-primary">
           Discover Your Next
           <br />
           Favorite
@@ -57,6 +41,10 @@ function BackgroundImage() {
       <div className="w-full ">
         <SearchBar />
       </div>
+      <div className="relative max-md:hidden">
+        <PopularSearches/>
+        <Stats/>
+      </div>
 
       <Images />
     </div>
@@ -65,57 +53,80 @@ function BackgroundImage() {
 
 function Images() {
   return (
-    <>
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut", delay: 0.6 }}
-        className=" absolute bottom-0 left-0 max-md:-bottom-10 max-md:-left-10 max-md:size-70"
-      >
-        {" "}
-        <Image src="/bl.webp" height={350} width={350} alt="Background" />
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut", delay: 0.6 }}
-        className=" absolute -bottom-20 right-0 max-md:hidden"
-      >
-        {" "}
-        <Image src="/br.webp" width={450} height={450} alt="Background" />
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut", delay: 0.6 }}
-        className=" absolute -top-20 right-50 max-md:-top-10 max-md:-right-2 max-md:size-40"
-      >
-        {" "}
-        <Image src="/tr.webp" width={250} height={250} alt="Background" />
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut", delay: 0.6 }}
-        className=" absolute -top-30 -left-10 max-md:-top-30 max-md:-left-20 max-md:size-70"
-      >
-        {" "}
-        <Image src="/tl.webp" width={400} height={350} alt="Background" />
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut", delay: 0.6 }}
-        className=" absolute -bottom-30 left-1/2 -translate-x-1/2 max-md:hidden"
-      >
-        {" "}
-        <Image src="/r.webp" width={400} height={350} alt="Background" />
-      </motion.div>
-    </>
+    <div className="absolute inset-0 z-10  ">
+      <div className="grid grid-rows-6 grid-cols-8 max-md:grid-rows-10 max-md:grid-cols-8 h-screen ">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.6 }}
+          className=" col-span-2 row-span-2 max-md:col-span-3 relative w-[110%] h-[120%] "
+        >
+          {" "}
+          <Image src="/tl.webp" fill className="object-bottom-right object-cover" alt="Background" />
+        </motion.div>
+        <div className="col-span-4 max-md:col-span-3 max-md:row-span-2 "></div>
+       
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.6 }}
+          className=" col-span-1 row-span-1 max-md:col-span-2 max-md:row-span-2 relative"
+        >
+          {" "}
+          <Image src="/tr.webp" fill className="object-bottom-left object-cover " alt="Background" />
+        </motion.div>
+        <div className="row-span-1 max-md:row-span-5 "></div>
+        <div className="row-span-3 max-md:col-span-6 max-md:row-span-4 col-span-4"></div>
+        <div className="row-span-2 col-span-2 max-md:col-span-1 max-md:row-span-4 "></div>
+        <div className="row-span-2 col-span-2 max-md:row-span-1 max-md:col-span-5 "></div>
+       
+       
+        
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.6 }}
+          className=" col-span-2 row-span-3 max-md:row-span-3 max-md:col-span-2 relative"
+        >
+          {" "}
+          <Image src="/br.webp" fill className="object-top-left object-cover" alt="Background" />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.6 }}
+          className="col-span-2 row-span-2 max-md:row-span-2 max-md:col-span-2 relative "
+        >
+          {" "}
+          <Image
+            src="/bl.webp"
+            fill
+            className="object-top-right object-cover "
+            alt="Background"
+          />
+        </motion.div>
+        <div className="col-span-4 max-md:row-span-1 max-md:col-span-4 "></div>
+
+       
+        <div></div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.6 }}
+          className="col-span-2 row-span-1 max-md:row-span-1 max-md:col-span-2 relative  bottom-0"
+        >
+          {" "}
+          <Image src="/r.webp" fill className="object-top object-cover" alt="Background" />
+        </motion.div>
+        <div></div>
+      </div>{" "}
+      // allocate different background color to each grid cell copilot
+    </div>
   );
 }
 
 function SearchBar() {
+  
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
 
@@ -132,7 +143,7 @@ function SearchBar() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.6 }}
-        className="max-w-2xl mx-auto mb-8"
+        className="max-w-2xl mx-auto mb-0"
       >
         <form onSubmit={handleSearch} className="relative group">
           <div className="relative">
@@ -156,4 +167,67 @@ function SearchBar() {
       </motion.div>
     </>
   );
+}
+
+function PopularSearches() {
+
+   const popularSearches = ["Chicken", "Pasta", "Dessert", "Vegetarian", "Quick meals"]
+   const router = useRouter()
+
+
+  return(
+
+       <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+            className="flex flex-wrap justify-center gap-2 mb-8"
+          >
+            <span className="text-sm text-muted-foreground flex items-center gap-2 mr-4">
+              <TrendingUp className="h-4 w-4" />
+              Popular:
+            </span>
+            {popularSearches.map((search, index) => (
+              <motion.button
+                key={search}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.8 + index * 0.1 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => router.push(`/search?q=${encodeURIComponent(search)}`)}
+                className="px-4 py-2 text-sm bg-secondary hover:bg-secondary/80 text-secondary-foreground rounded-full transition-colors"
+              >
+                {search}
+              </motion.button>
+            ))}
+            
+          </motion.div>
+  )
+
+}
+
+
+function Stats(){
+  return (
+    <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 0.6 }}
+            className="grid grid-cols-3 gap-8 max-w-md mx-auto"
+          >
+            <div className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-primary">1000+</div>
+              <div className="text-sm text-muted-foreground">Recipes</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-primary">50+</div>
+              <div className="text-sm text-muted-foreground">Countries</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-primary">25+</div>
+              <div className="text-sm text-muted-foreground">Categories</div>
+            </div>
+          </motion.div>
+  )
 }

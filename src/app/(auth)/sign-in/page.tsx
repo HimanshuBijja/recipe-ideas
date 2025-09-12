@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { toast, Toaster } from "sonner";
 import { useDebounceCallback, useDebounceValue } from "usehooks-ts";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signInSchema } from "@/schemas/signInSchema";
+import { signInSchema } from "@/schemas/(delete)/signInSchema";
 import z from "zod";
 import axios, { AxiosError } from "axios";
 import { ApiResponse } from "@/types/ApiResponse";

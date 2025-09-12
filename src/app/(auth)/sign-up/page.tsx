@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { toast, Toaster } from "sonner";
 import { useDebounceCallback, useDebounceValue } from "usehooks-ts";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signUpSchema } from "@/schemas/signUpSchema";
+import { signUpSchema } from "@/schemas/(delete)/signUpSchema";
 import z from "zod";
 import axios, { AxiosError } from "axios";
 import { ApiResponse } from "@/types/ApiResponse";
@@ -84,7 +84,7 @@ export default function SignUpPage() {
         // },
       });
       // router.push(`/verify/${data.username}`);
-      router.push(`/verify/${username}`); 
+      router.push(`/verify/${username}`);
       setIsSubmitting(false);
     } catch (error) {
       // console.error("Error signing up user:", error);
