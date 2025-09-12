@@ -128,7 +128,7 @@ export function FilterPanel({ filters, onFiltersChange, onClose }: FilterPanelPr
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 className="overflow-hidden"
               >
-                <div className="p-4 pt-0 border-t border-border">
+                <div className="p-4 pt-4 border-t border-border"> 
                   {filters[section.id] && (
                     <div className="flex justify-between items-center mb-3">
                       <span className="text-sm text-muted-foreground">Selected: {filters[section.id]}</span>

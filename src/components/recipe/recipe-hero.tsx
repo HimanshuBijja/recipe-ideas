@@ -23,7 +23,7 @@ export function RecipeHero({ recipe }: RecipeHeroProps) {
 
   const handleFavorite = () => {
     if (!session) {
-      router.push("/auth/signin");
+      router.push("/sign-in");
       return;
     }
     setIsFavorited(!isFavorited);
@@ -32,7 +32,7 @@ export function RecipeHero({ recipe }: RecipeHeroProps) {
 
   const handleSave = () => {
     if (!session) {
-      router.push("/auth/signin");
+      router.push("/sign-in");
       return;
     }
     setIsSaved(!isSaved);
