@@ -131,10 +131,10 @@ export function Navbar() {
           ) : (
             <div className="flex items-center space-x-2">
               <Button variant="ghost" asChild>
-                <Link href="/auth/signin">Sign In</Link>
+                <Link href="/sign-in">Sign In</Link>
               </Button>
               <Button asChild>
-                <Link href="/auth/signup">Sign Up</Link>
+                <Link href="/sign-up">Sign Up</Link>
               </Button>
             </div>
           )}
@@ -221,14 +221,14 @@ export function Navbar() {
               ) : (
                 <div className="pt-4 border-t border-border space-y-2">
                   <Link
-                    href="/auth/signin"
+                    href="/sign-in"
                     className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Sign In
                   </Link>
                   <Link
-                    href="/auth/signup"
+                    href="/sign-up"
                     className="block text-sm font-medium text-primary hover:text-primary/80 transition-colors"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >

@@ -21,7 +21,7 @@ import {
 import axios from "axios";
 import { ApiResponse } from "@/types/ApiResponse";
 import { toast } from "sonner";
-import { Message } from "@/model/User";
+import { Message } from "@/models/User";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {

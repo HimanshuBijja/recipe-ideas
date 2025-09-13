@@ -1,37 +1,74 @@
-import type { ObjectId } from "mongodb"
+import mongoose, { Document, Schema } from 'mongoose';
 
-export interface User {
-  _id?: ObjectId
-  email: string
-  name?: string
-  password: string
-  createdAt: Date
-  updatedAt: Date
+export interface Message extends Document {
+    content: string;
+    createdAt: Date;
 }
 
-export interface SavedRecipe {
-  _id?: ObjectId
-  userId: ObjectId
-  mealId: string
-  mealName: string
-  mealThumb: string
-  category?: string
-  area?: string
-  savedAt: Date
+const MessageSchema: Schema<Message> = new Schema({
+    content: {
+        type: String,
+        required: true,
+    },
+    createdAt: {
+        type: Date,
+        required: true,
+        default: Date.now(),
+    },
+});
+
+export interface User extends Document {
+    username: string;
+    email: string;
+    password: string;
+    verifyCode: string;
+    verifyCodeExpiry: Date;
+    isVerified: boolean;
+    isAcceptingMessages: boolean;
+    messages: Message[];
 }
 
-export interface Favorite {
-  _id?: ObjectId
-  userId: ObjectId
-  mealId: string
-  mealName: string
-  mealThumb: string
-  favoritedAt: Date
-}
+const UserSchema: Schema<User> = new Schema({
+    username: {
+        type: String,
+        required: [true, 'Username is required'],
+        trim: true,
+        unique: true,
+    },
+    email: {
+        type: String,
+        required: [true, 'Email is required'],
+        unique: true,
+        match: [
+            /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
+            'please use a valid email address',
+        ],
+    },
+    password: {
+        type: String,
+        required: [true, 'Password is required'],
+    },
+    verifyCode: {
+        type: String,
+        required: [true, 'Verify code is required'],
+    },
+    verifyCodeExpiry: {
+        type: Date,
+        required: [true, 'Verify code expiry is required'],
+        default: Date.now(),
+    },
+    isVerified: {
+        type: Boolean,
+        default: false,
+    },
+    isAcceptingMessages: {
+        type: Boolean,
+        default: true,
+    },
+    messages: [MessageSchema],
+});
 
-export interface RecentSearch {
-  _id?: ObjectId
-  userId: ObjectId
-  searchTerm: string
-  searchedAt: Date
-}
+
+const UserModel = (mongoose.models.User as mongoose.Model<User>) || mongoose.model("User", UserSchema);
+
+export default UserModel;

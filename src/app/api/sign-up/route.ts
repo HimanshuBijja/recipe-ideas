@@ -1,11 +1,11 @@
-import dbConnect from '@/lib/dbConnect';
-import UserModel from '@/model/User';
-import { NextRequest, NextResponse } from 'next/server';
-import  bcrypt from 'bcryptjs';
-import VerificationEmail from '../../../../emails/verificationEmail';
-import { sendVerificationEmail } from '@/helpers/sendVerificationEmail';
-import { success } from 'zod';
- 'bcryptjs';
+import dbConnect from "@/lib/dbConnect";
+import UserModel from "@/models/User";
+import { NextRequest, NextResponse } from "next/server";
+import bcrypt from "bcryptjs";
+import VerificationEmail from "../../../../emails/verificationEmail";
+import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
+import { success } from "zod";
+("bcryptjs");
 
 export async function POST(request: NextRequest) {
     await dbConnect();
@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
             return NextResponse.json(
                 {
                     success: false,
-                    message: 'Username already taken',
+                    message: "Username already taken",
                 },
                 {
                     status: 400,
@@ -29,36 +29,42 @@ export async function POST(request: NextRequest) {
         }
 
         const existingUserByEmail = await UserModel.findOne({
-            email
-        })
+            email,
+        });
         //genereate verifycode
-        const verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
-        if(existingUserByEmail){
-            
+        const verifyCode = Math.floor(
+            100000 + Math.random() * 900000,
+        ).toString();
+        if (existingUserByEmail) {
             //if verified return
-            if(existingUserByEmail.isVerified){
-                return NextResponse.json({
-                    success: false,
-                    message: 'Email already verified'
-                },{
-                    status: 400
-                })
-            }else{
+            if (existingUserByEmail.isVerified) {
+                return NextResponse.json(
+                    {
+                        success: false,
+                        message: "Email already verified",
+                    },
+                    {
+                        status: 400,
+                    },
+                );
+            } else {
                 const hashedPassword = await bcrypt.hash(password, 10);
-                existingUserByEmail.password = hashedPassword; 
+                existingUserByEmail.password = hashedPassword;
                 existingUserByEmail.verifyCode = verifyCode;
-                existingUserByEmail.verifyCodeExpiry = new Date(Date.now() + 3600000);
+                existingUserByEmail.verifyCodeExpiry = new Date(
+                    Date.now() + 3600000,
+                );
                 await existingUserByEmail.save();
             }
             //else send verification code in db
-        }else{
+        } else {
             //encrypt pass  by 10 rounds
-            const hashedPassword = await bcrypt.hash(password, 10)
+            const hashedPassword = await bcrypt.hash(password, 10);
             //expiry date
             const expiryDate = new Date();
             expiryDate.setHours(expiryDate.getHours() + 1);
             //store user in db
-            
+
             const newUser = new UserModel({
                 username,
                 email,
@@ -67,38 +73,51 @@ export async function POST(request: NextRequest) {
                 verifyCodeExpiry: expiryDate,
                 isVerified: false,
                 isAcceptingMessages: true,
-                messages: [{content: `Welcome, ${username}! This is your first message. Thank you for joining us.`}],
+                messages: [
+                    {
+                        content: `Welcome, ${username}! This is your first message. Thank you for joining us.`,
+                    },
+                ],
             });
-            
+
             await newUser.save();
         }
-        
-        //send verification code 
-        const emailResponse = await sendVerificationEmail(email, username, verifyCode);
-        
-        if(!emailResponse.success){
-            return NextResponse.json({
-                success: false,
-                message: emailResponse.message
-            },{
-                status: 500
-            })
-         }
 
-         return NextResponse.json({
-            success: true,
-            message: 'User Registered Successfully, Please Verify Your Email'
-         } ,{
-            status: 201
-         })
+        //send verification code
+        const emailResponse = await sendVerificationEmail(
+            email,
+            username,
+            verifyCode,
+        );
 
+        if (!emailResponse.success) {
+            return NextResponse.json(
+                {
+                    success: false,
+                    message: emailResponse.message,
+                },
+                {
+                    status: 500,
+                },
+            );
+        }
 
+        return NextResponse.json(
+            {
+                success: true,
+                message:
+                    "User Registered Successfully, Please Verify Your Email",
+            },
+            {
+                status: 201,
+            },
+        );
     } catch (error) {
         // console.error('Error Registering user', error);
         return NextResponse.json(
             {
                 success: false,
-                message: 'Error Registering user',
+                message: "Error Registering user",
             },
             {
                 status: 500,

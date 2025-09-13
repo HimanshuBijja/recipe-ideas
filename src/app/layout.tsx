@@ -6,6 +6,7 @@ import {
   Kavoon,
   Italianno,
   Marcellus,
+  Inter,
 } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/providers/AuthProvider";
@@ -28,6 +29,7 @@ const saira = Saira({
   subsets: ["latin"],
 });
 
+
 const kavoon = Kavoon({
   weight: ["400"],
   variable: "--font-kavoon",
@@ -45,6 +47,12 @@ const marcellus = Marcellus({
   subsets: ["latin"],
 });
 
+const inter = Inter({
+  weight: ["400"],
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "Recipe Ideas",
   description: "Anonymous messaging platform for secure communication",
@@ -58,7 +66,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${saira.variable} ${kavoon.variable} ${italianno.variable} ${marcellus.variable} antialiased relative min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} ${saira.variable} ${kavoon.variable} ${italianno.variable} ${marcellus.variable} ${inter.variable} antialiased relative min-h-screen`}
       >
         <QueryProvider>
           <AuthProvider>

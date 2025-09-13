@@ -1,7 +1,7 @@
 //db model zod schema usernamevalidation
 
 import dbConnect from "@/lib/dbConnect";
-import UserModel from "@/model/User";
+import UserModel from "@/models/User";
 import { usernameValidation } from "@/schemas/(delete)/signUpSchema";
 import { NextRequest, NextResponse } from "next/server";
 import z, { success } from "zod";

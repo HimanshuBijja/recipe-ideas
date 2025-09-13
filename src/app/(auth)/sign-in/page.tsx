@@ -55,7 +55,7 @@ export default function SignInPage() {
       setIsSubmitting(false);
     }
     if (result?.url) {
-      router.replace("/dashboard");
+      router.replace("/");
       setIsSubmitting(false);
     }
   };

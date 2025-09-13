@@ -171,7 +171,7 @@ function SearchBar() {
 }
 
 function PopularSearches() {
-  const popularSearches = ["Chicken", "Pasta", "Dessert", "Vegetarian", "Quick meals"];
+  const popularSearches = ["Chicken", "Pasta", "Cake", "Vegetarian", "Soup", ];
   const router = useRouter();
 
   const handlePopularSearch = (search: string) => {

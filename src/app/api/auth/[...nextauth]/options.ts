@@ -1,5 +1,5 @@
 import dbConnect from "@/lib/dbConnect";
-import UserModel from "@/model/User";
+import UserModel from "@/models/User";
 import bcrypt from "bcryptjs";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -83,6 +83,6 @@ export const authOptions: NextAuthOptions = {
         strategy: "jwt",
     },
     //secret NEXTAUTH_SECRET
-    secret: process.env.NEXTAUTH_SECRET, 
+    secret: process.env.NEXTAUTH_SECRET,
     //adapters if using prisma (not req as of now)
 };
